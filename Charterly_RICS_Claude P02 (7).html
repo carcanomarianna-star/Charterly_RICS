@@ -2134,7 +2134,7 @@ const RICS_PATHWAYS = {
     designations: [
       { id:"eng",  label:"Chartered Engineering Surveyor", specId:"ENG", specLabel:"Engineering Surveying (ENG)" },
       { id:"land", label:"Chartered Land Surveyor",        specId:"SMP", specLabel:"Surveying & Mapping (SMP)" },
-      { id:"hydro", label:"Chartered Hydrographic Surveyor", specId:"HYD", specLabel:"Hydrographic Surveying (HYD)" },
+      { id:"hyd",  label:"Chartered Hydrographic Surveyor", specId:"HYD", specLabel:"Hydrographic Surveying (HYD)" },
     ],
     core: [
       {id:"CAD",  name:"Cadastre and Land Administration"},
@@ -2180,10 +2180,11 @@ const RICS_PATHWAYS = {
       {id:"LRCt",  name:"Legal / Regulatory Compliance", base:"LRC"},
       {id:"MNEt",  name:"Management of the Natural Environment", base:"MNE"},
       {id:"MSRt",  name:"Measurement", base:"MSR"},
-      {id:"PLNt",  name:"Planning and development management", base:"PLN"},
+      {id:"PLNt",  name:"Planning Development and Management"},
       {id:"RSPt",  name:"Remote Sensing and Photogrammetry", base:"RSP"},
       {id:"SMPt",  name:"Surveying & Mapping", base:"SMP"},
       {id:"SLSt",  name:"Surveying Land and Sea", base:"SLS"},
+      {id:"PLNt",  name:"Planning and development management", base:"PLN"},
       {id:"MARt",  name:"Use of the Marine Environment", base:"MAR"},
     ],
   },
@@ -2259,6 +2260,7 @@ function isRPQRoute() {
 let S = {
   step: 0,            // 0 = body selection (landing)
   body: null,
+  sector: null,
   pathway:  null,     // e.g. "geomatics" | "building-surveying" — RICS_PATHWAYS key
   subDesig: null,     // e.g. "eng" | "land" — only used when pathway has designations[]
   desig:    null,     // LEGACY alias kept for export compat; mirrors subDesig for geomatics
@@ -3588,7 +3590,8 @@ function loadState() {
                            rpqBody:null,rpqExpYears:null,result:null,
                            cHasDegree:null,cExpWithDeg:null,cExpNoDeg:null,cExpPossibly:null};
     if (S.elig && S.elig.cHasDegree === undefined) { S.elig.cHasDegree=null; S.elig.cExpWithDeg=null; S.elig.cExpNoDeg=null; S.elig.cExpPossibly=null; }
-    if (!S.pathway)      S.pathway = null;
+    if (!S.pathway)      S.sector = null;
+  S.pathway = null;
     if (!S.subDesig)     S.subDesig = null;
     if (!S.appendices)   S.appendices = [];
     if (!S.erAppendices) S.erAppendices = [];
@@ -5355,6 +5358,7 @@ function r0(C) {
       <div class="choice-card rics-card selected">
         <div class="choice-label" style="color:var(--rics-bright)">RICS</div>
         <div class="choice-desc">Royal Institution of Chartered Surveyors</div>
+
       </div>
 
     </div>
@@ -5390,132 +5394,106 @@ function r1(C) {
   const hasData = pw && (pw.core.length > 0);
   const specLabel = getSpecLabel();
 
-  const pathwayRows = sectorOrder.map(sector => {
-    const pws = sectors[sector] || [];
-    const items = pws.map(p => `
-      <div class="elig-select-item${S.pathway===p.key?' selected':''}"
-           onclick="selPathway('${p.key}')">
-        <div class="elig-select-main">${p.label}</div>
-        <div class="elig-select-exp">${p.sector}${p.core.length===0?' · competencies coming soon':''}</div>
-      </div>`).join('');
-    return `<div class="elig-select-group-label">${sector}</div>${items}`;
+  // 1. Select Sector UI
+  const sectorRows = sectorOrder.map(sec => {
+    const isSel = S.sector === sec;
+    const pwsCount = (sectors[sec] || []).length;
+    return `
+      <div class="elig-select-item${isSel ? ' selected' : ''}" onclick="selSector('${sec}')">
+        <div class="elig-select-main">${sec}</div>
+        <div class="elig-select-exp">Select to view ${pwsCount} pathways in the ${sec} sector.</div>
+        ${isSel ? '<span class="badge badge-success" style="margin-top:8px">✓ Selected</span>' : ''}
+      </div>
+    `;
   }).join('');
 
-  // Sub-designation panel (only shown when pathway has designations[])
-  const desigPanel = desigs ? `
-    <div class="panel" style="margin-bottom:0;padding:20px 24px">
-      <h2 class="section-title" style="margin-bottom:4px">Select Designation</h2>
-      <p class="sub">Your designation determines the automatic specialism.</p>
-      <div class="choice-grid" style="margin-bottom:12px">
-        ${desigs.map(d=>`
-          <div class="choice-card${S.subDesig===d.id?' selected':''}" onclick="selSubDesig('${d.id}')">
-            <div class="choice-label" style="font-size:15px;color:var(--accent)">${d.label}</div>
-            <div class="choice-desc">${d.specLabel} auto-selected as specialism.</div>
-            <span class="badge badge-acc">${d.specId} Auto-Selected</span>
-          </div>`).join('')}
+  let out = `
+    <div style="max-width:900px;margin:0 auto;animation:fadeIn 0.3s ease">
+      <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--text-dark);margin-bottom:16px">Select Your Pathway</h2>
+      <p style="color:var(--text-light);margin-bottom:32px">Select your sector, pathway, and specialist designation below.</p>
+
+      <div style="margin-bottom:32px">
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">1. Select Sector</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+          ${sectorRows}
+        </div>
       </div>
-      ${specLabel?`<div class="panel-acc" style="padding:10px 14px;border-radius:8px;font-size:12px;color:var(--accent)">
-        ✓ Specialism pre-set: <strong>${specLabel}</strong> — locked in Competencies; removed from Core list.
-      </div>`:''}
-    </div>` : '';
+  `;
 
-  const canContinue = pw && (!desigs || S.subDesig) && hasData;
-  const notReady = pw && !hasData;
+  // 2. Select Pathway UI (Only show if a sector is selected)
+  if (S.sector) {
+    const pathwayRows = (sectors[S.sector] || []).map(p => {
+      const isSel = S.pathway === p.key;
+      return `
+        <div class="elig-select-item${isSel ? ' selected' : ''}" onclick="selPathway('${p.key}')">
+          <div class="elig-select-main">${p.label}</div>
+          <div class="elig-select-exp">${p.core.length === 0 ? 'Competencies coming soon' : 'View the ' + p.label + ' pathway details.'}</div>
+          ${isSel ? '<span class="badge badge-success" style="margin-top:8px">✓ Selected</span>' : ''}
+        </div>
+      `;
+    }).join('');
 
-  C.innerHTML = `<div class="r3-layout">
-
-    <!-- Left col: empty spacer so centre is truly centred -->
-    <div style="border-right:1px solid var(--border);background:var(--surface)"></div>
-
-    <!-- Centre: pathway selector -->
-    <div class="r3-centre">
-      <div class="panel" style="margin-bottom:16px;padding:24px 28px">
-        <h1 class="page-title" style="margin-bottom:4px">Select your RICS Pathway</h1>
-        <p class="sub">Choose the sector pathway that matches your area of practice.</p>
-        <div class="elig-select-list" style="max-height:440px;margin-top:12px">${pathwayRows}</div>
+    out += `
+      <div style="margin-bottom:32px;animation:fadeIn 0.3s ease">
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">2. Select Pathway</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+          ${pathwayRows}
+        </div>
       </div>
-      ${desigPanel}
-      ${notReady?`<div class="panel-warn" style="padding:12px 16px;border-radius:8px;font-size:12px;margin-bottom:0">
-        ⏳ Competency data for <strong>${pw.label}</strong> is not yet available. Please check back soon or choose another pathway.
-      </div>`:''}
-      <div class="btn-row" style="margin-top:16px">
-        <button class="btn btn-ghost" onclick="goStep(0)">← Back</button>
-        <button class="btn btn-primary" ${!canContinue?'disabled':''} onclick="goStep(2)">Continue →</button>
-      </div>
-    </div>
-
-    <!-- Right: glossary / pathway info panel -->
-    <div class="r3-glossary">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rics-bright);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--rics-border)">Selected Pathway</div>
-      ${pw
-        ? `<div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px">${pw.label}</div>
-           <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${pw.sector} sector</div>
-           ${hasData
-             ? `<div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:12px">✓ Competencies available</div>`
-             : `<div style="font-size:11px;color:var(--amber);font-weight:600;margin-bottom:12px">⏳ Competencies coming soon</div>`}
-           ${desigs
-             ? `<div style="font-size:11px;color:var(--muted);margin-bottom:12px;padding:8px 10px;background:var(--rics-bg);border-radius:6px;border:1px solid var(--rics-border)">
-                  This pathway requires a sub-designation choice (shown below the list once selected).
-                </div>` : ''}
-           ${specLabel
-             ? `<div style="font-size:11px;color:var(--rics);padding:8px 10px;background:var(--rics-bg);border-radius:6px;border:1px solid var(--rics-border);margin-bottom:12px">
-                  ✓ Specialism: <strong>${specLabel}</strong>
-                </div>` : ''}`
-        : `<div style="font-size:12px;color:var(--faint);margin-bottom:12px">No pathway selected yet.</div>`}
-
-      <div style="font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px;margin-top:4px">RICS Sectors</div>
-      ${sectorOrder.map(s => `
-        <div style="margin-bottom:10px">
-          <div style="font-size:11px;font-weight:600;color:var(--rics-bright);margin-bottom:3px">${s}</div>
-          ${(sectors[s]||[]).map(p => `
-            <div style="font-size:11px;color:${S.pathway===p.key?'var(--rics)':'var(--muted)'};
-                        font-weight:${S.pathway===p.key?'600':'400'};
-                        padding:2px 0;cursor:pointer"
-                 onclick="selPathway('${p.key}')">${p.label}</div>`).join('')}
-        </div>`).join('')}
-    </div>
-
-  </div>`;
-}
-
-function selPathway(key) {
-  if (S.pathway === key) return;
-  S.pathway = key;
-  // Reset sub-designation and selections when pathway changes
-  S.subDesig = null;
-  S.desig    = null;
-  S.sel.spec = null;
-  S.sel.core = [];
-  S.sel.opt  = [];
-  S.sel.tech = null;
-  saveState();
-  render();
-}
-
-function selSubDesig(d) {
-  S.subDesig = d;
-  S.desig    = d;  // legacy alias
-  const specId = getSpecId();
-  S.sel.spec = specId;
-  if (specId) {
-    const sb = boOf(specId, getCoreList());
-    S.sel.core = S.sel.core.filter(id => boOf(id, getCoreList()) !== sb);
+    `;
   }
-  saveState();
-  render();
+
+  // 3. Select Designation UI (Only show if a pathway is selected AND it has designations)
+  if (S.pathway && desigs && desigs.length > 0) {
+    const desigRows = desigs.map(d => {
+      const isSel = S.subDesig === d.id;
+      return `
+        <div class="elig-select-item${isSel ? ' selected' : ''}" onclick="selSubDesig('${d.id}')">
+          <div class="elig-select-main">${d.label}</div>
+          <div class="elig-select-exp">${d.specLabel || ''} auto-selected as specialism.</div>
+          ${isSel ? '<span class="badge badge-success" style="margin-top:8px">✓ Selected</span>' : ''}
+        </div>
+      `;
+    }).join('');
+
+    out += `
+      <div style="margin-bottom:32px;animation:fadeIn 0.3s ease">
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">3. Select Specialist Designation</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+          ${desigRows}
+        </div>
+      </div>
+    `;
+  }
+
+  // Active Selection Summary Banner
+  if (S.pathway) {
+     let summary = `✓ Pathway set: <b>${S.sector || ''} → ${pw.label}</b>`;
+     if (S.subDesig) {
+         const d = desigs.find(x => x.id === S.subDesig);
+         if (d) summary += ` <b>→ ${d.specLabel}</b>`;
+     }
+     out += `
+       <div class="alert alert-success" style="margin-top:24px;font-size:14px;animation:fadeIn 0.3s ease">
+         ${summary}
+       </div>
+     `;
+  }
+
+  // Navigation Buttons
+  const canContinue = S.pathway && (!desigs || S.subDesig) && hasData;
+  out += `
+    <div style="margin-top:40px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:100;padding-bottom:120px;">
+      <button class="btn btn-outline" onclick="goStep(0)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(2)" ${!canContinue ? 'disabled' : ''}>
+        Continue to Competencies →
+      </button>
+    </div>
+  </div>`;
+  C.innerHTML = out;
 }
 
-// Legacy selDesig — kept for any residual calls; delegates to selSubDesig
-function selDesig(d) { selSubDesig(d); }
 
-// ──────────────────────────────────────────────── STEP 2 — Competencies ─────
-
-function setR2Group(g) {
-  // null means "All Groups" — always clear; otherwise toggle
-  S.r2ActiveGroup = (g === null || S.r2ActiveGroup === g) ? null : g;
-  saveState();
-  render();
-}
 
 function r2(C) {
   if (S.valErrs.length) {
