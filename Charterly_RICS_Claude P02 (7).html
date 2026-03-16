@@ -2211,32 +2211,24 @@ const RICS_PATHWAYS = {
       { id:"default", label:"Construction Management", specId:"DEF", specLabel:"Construction Management" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
-  "environment": { label:"Environment", sector:"Land", designations: [
-      { id:"default", label:"Environment", specId:"DEF", specLabel:"Environment" },
+  "environment": { label:"Environmental Surveying", sector:"Land", designations: [
+      { id:"default", label:"Environmental Surveying", specId:"DEF", specLabel:"Environmental Surveying" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
   "facilities-management": { label:"Facilities Management", sector:"Property", designations: [
       { id:"default", label:"Facilities Management", specId:"DEF", specLabel:"Facilities Management" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
-  "historic-conservation": { label:"Historic Building Conservation", sector:"Built Environment", designations: [
-      { id:"default", label:"Historic Building Conservation", specId:"DEF", specLabel:"Historic Building Conservation" },
-      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
-    ], core:[], optional:[], tech:[] },
   "infrastructure": { label:"Infrastructure", sector:"Land", designations: [
       { id:"default", label:"Infrastructure", specId:"DEF", specLabel:"Infrastructure" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
-  "intelligent-buildings": { label:"Intelligent Buildings", sector:"Built Environment", designations: [
-      { id:"default", label:"Intelligent Buildings", specId:"DEF", specLabel:"Intelligent Buildings" },
+  "intelligent-buildings": { label:"Data Analytics and Intelligence", sector:"Built Environment", designations: [
+      { id:"default", label:"Data Analytics and Intelligence", specId:"DEF", specLabel:"Data Analytics and Intelligence" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
   "land-resources": { label:"Land and Resources", sector:"Land", designations: [
       { id:"default", label:"Land and Resources", specId:"DEF", specLabel:"Land and Resources" },
-      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
-    ], core:[], optional:[], tech:[] },
-  "machinery-assets": { label:"Machinery and Business Assets", sector:"Property", designations: [
-      { id:"default", label:"Machinery and Business Assets", specId:"DEF", specLabel:"Machinery and Business Assets" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
   "management-consultancy": { label:"Management Consultancy", sector:"Property", designations: [
@@ -2260,7 +2252,7 @@ const RICS_PATHWAYS = {
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
   "quantity-surveying":       {
-    label:"Quantity Surveying",
+    label:"Quantity Surveying and Construction",
     sector:"Built Environment",
     designations: [
       { id:"cce", label:"Commercial or contracting environment", specId:"CCE", specLabel:"Commercial or contracting environment" },
@@ -2273,8 +2265,8 @@ const RICS_PATHWAYS = {
       { id:"default", label:"Real Estate Management", specId:"DEF", specLabel:"Real Estate Management" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
-  "residential-property": { label:"Residential Property", sector:"Property", designations: [
-      { id:"default", label:"Residential Property", specId:"DEF", specLabel:"Residential Property" },
+  "residential-property": { label:"Residential", sector:"Property", designations: [
+      { id:"default", label:"Residential", specId:"DEF", specLabel:"Residential" },
       { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
     ], core:[], optional:[], tech:[] },
   "rural": { label:"Rural", sector:"Land", designations: [
@@ -2292,6 +2284,23 @@ const RICS_PATHWAYS = {
     ],
     core:[], optional:[], tech:[]
   },
+  "corporate-real-estate": { label:"Corporate Real Estate", sector:"Property", designations: [
+      { id:"default", label:"Corporate Real Estate", specId:"DEF", specLabel:"Corporate Real Estate" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "taxation-allowances": { label:"Taxation Allowances", sector:"Property", designations: [
+      { id:"default", label:"Taxation Allowances", specId:"DEF", specLabel:"Taxation Allowances" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "valuation-businesses-intangible-assets": { label:"Valuation of Businesses and Intangible Assets", sector:"Property", designations: [
+      { id:"default", label:"Valuation of Businesses and Intangible Assets", specId:"DEF", specLabel:"Valuation of Businesses and Intangible Assets" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "sustainability-advisory": { label:"Sustainability Advisory", sector:"Built Environment", designations: [
+      { id:"default", label:"Sustainability Advisory", specId:"DEF", specLabel:"Sustainability Advisory" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+
 };
 
 // ── Convenience accessors for the active pathway ─────────────────────────────
@@ -5530,7 +5539,7 @@ function r1(C) {
   let out = `
     <div style="max-width:900px;margin:0 auto;animation:fadeIn 0.3s ease">
       <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--text-dark);margin-bottom:16px">Select Your Pathway</h2>
-      <p style="color:var(--text-light);margin-bottom:32px">Select your sector, pathway, and specialization below.</p>
+      <p style="color:var(--text-light);margin-bottom:32px">Select your sector, pathway, and specialisation below.</p>
 
       <div style="margin-bottom:32px">
         <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">1. Select Sector</h3>
@@ -5578,7 +5587,7 @@ function r1(C) {
 
     out += `
       <div style="margin-bottom:32px;animation:fadeIn 0.3s ease">
-        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">3. Select Specialization</h3>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">3. Select Specialisation</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
           ${desigRows}
         </div>
