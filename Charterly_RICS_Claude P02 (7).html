@@ -2135,6 +2135,7 @@ const RICS_PATHWAYS = {
       { id:"eng",  label:"Chartered Engineering Surveyor", specId:"ENG", specLabel:"Engineering Surveying (ENG)" },
       { id:"land", label:"Chartered Land Surveyor",        specId:"SMP", specLabel:"Surveying & Mapping (SMP)" },
       { id:"hyd",  label:"Chartered Hydrographic Surveyor", specId:"HYD", specLabel:"Hydrographic Surveying (HYD)" },
+      { id:"res",  label:"Research", specId:"RES", specLabel:"Research" },
     ],
     core: [
       {id:"CAD",  name:"Cadastre and Land Administration"},
@@ -2190,28 +2191,107 @@ const RICS_PATHWAYS = {
   },
 
   // ── Remaining 22 RICS sector pathways — competency data to follow ──────────
-  "arts-antiques":            { label:"Arts and Antiques",                  sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "building-control":         { label:"Building Control",                   sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "building-surveying":       { label:"Building Surveying",                 sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "commercial-real-estate":   { label:"Commercial Real Estate",             sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "construction-management":  { label:"Construction Management",            sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "environment":              { label:"Environment",                        sector:"Land",             designations:null, core:[], optional:[], tech:[] },
-  "facilities-management":    { label:"Facilities Management",              sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "historic-conservation":    { label:"Historic Building Conservation",     sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "infrastructure":           { label:"Infrastructure",                     sector:"Land",             designations:null, core:[], optional:[], tech:[] },
-  "intelligent-buildings":    { label:"Intelligent Buildings",              sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "land-resources":           { label:"Land and Resources",                 sector:"Land",             designations:null, core:[], optional:[], tech:[] },
-  "machinery-assets":         { label:"Machinery and Business Assets",      sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "management-consultancy":   { label:"Management Consultancy",             sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "minerals-waste":           { label:"Minerals and Waste Management",      sector:"Land",             designations:null, core:[], optional:[], tech:[] },
-  "planning-development":     { label:"Planning and Development",           sector:"Land",             designations:null, core:[], optional:[], tech:[] },
-  "project-management":       { label:"Project Management",                 sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "property-finance":         { label:"Property Finance and Investment",    sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "quantity-surveying":       { label:"Quantity Surveying",                 sector:"Built Environment", designations:null, core:[], optional:[], tech:[] },
-  "real-estate-management":   { label:"Real Estate Management",             sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "residential-property":     { label:"Residential Property",               sector:"Property",         designations:null, core:[], optional:[], tech:[] },
-  "rural":                    { label:"Rural",                              sector:"Land",             designations:null, core:[], optional:[], tech:[] },
-  "valuation":                { label:"Valuation",                          sector:"Property",         designations:null, core:[], optional:[], tech:[] },
+  "arts-antiques": { label:"Arts and Antiques", sector:"Property", designations: [
+      { id:"default", label:"Arts and Antiques", specId:"DEF", specLabel:"Arts and Antiques" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "building-control": { label:"Building Control", sector:"Built Environment", designations: [
+      { id:"default", label:"Building Control", specId:"DEF", specLabel:"Building Control" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "building-surveying": { label:"Building Surveying", sector:"Built Environment", designations: [
+      { id:"default", label:"Building Surveying", specId:"DEF", specLabel:"Building Surveying" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "commercial-real-estate": { label:"Commercial Real Estate", sector:"Property", designations: [
+      { id:"default", label:"Commercial Real Estate", specId:"DEF", specLabel:"Commercial Real Estate" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "construction-management": { label:"Construction Management", sector:"Built Environment", designations: [
+      { id:"default", label:"Construction Management", specId:"DEF", specLabel:"Construction Management" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "environment": { label:"Environment", sector:"Land", designations: [
+      { id:"default", label:"Environment", specId:"DEF", specLabel:"Environment" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "facilities-management": { label:"Facilities Management", sector:"Property", designations: [
+      { id:"default", label:"Facilities Management", specId:"DEF", specLabel:"Facilities Management" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "historic-conservation": { label:"Historic Building Conservation", sector:"Built Environment", designations: [
+      { id:"default", label:"Historic Building Conservation", specId:"DEF", specLabel:"Historic Building Conservation" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "infrastructure": { label:"Infrastructure", sector:"Land", designations: [
+      { id:"default", label:"Infrastructure", specId:"DEF", specLabel:"Infrastructure" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "intelligent-buildings": { label:"Intelligent Buildings", sector:"Built Environment", designations: [
+      { id:"default", label:"Intelligent Buildings", specId:"DEF", specLabel:"Intelligent Buildings" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "land-resources": { label:"Land and Resources", sector:"Land", designations: [
+      { id:"default", label:"Land and Resources", specId:"DEF", specLabel:"Land and Resources" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "machinery-assets": { label:"Machinery and Business Assets", sector:"Property", designations: [
+      { id:"default", label:"Machinery and Business Assets", specId:"DEF", specLabel:"Machinery and Business Assets" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "management-consultancy": { label:"Management Consultancy", sector:"Property", designations: [
+      { id:"default", label:"Management Consultancy", specId:"DEF", specLabel:"Management Consultancy" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "minerals-waste": { label:"Minerals and Waste Management", sector:"Land", designations: [
+      { id:"default", label:"Minerals and Waste Management", specId:"DEF", specLabel:"Minerals and Waste Management" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "planning-development": { label:"Planning and Development", sector:"Land", designations: [
+      { id:"default", label:"Planning and Development", specId:"DEF", specLabel:"Planning and Development" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "project-management": { label:"Project Management", sector:"Built Environment", designations: [
+      { id:"default", label:"Project Management", specId:"DEF", specLabel:"Project Management" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "property-finance": { label:"Property Finance and Investment", sector:"Property", designations: [
+      { id:"default", label:"Property Finance and Investment", specId:"DEF", specLabel:"Property Finance and Investment" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "quantity-surveying":       {
+    label:"Quantity Surveying",
+    sector:"Built Environment",
+    designations: [
+      { id:"cce", label:"Commercial or contracting environment", specId:"CCE", specLabel:"Commercial or contracting environment" },
+      { id:"ce", label:"Consulting environment", specId:"CE", specLabel:"Consulting environment" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ],
+    core:[], optional:[], tech:[]
+  },
+  "real-estate-management": { label:"Real Estate Management", sector:"Property", designations: [
+      { id:"default", label:"Real Estate Management", specId:"DEF", specLabel:"Real Estate Management" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "residential-property": { label:"Residential Property", sector:"Property", designations: [
+      { id:"default", label:"Residential Property", specId:"DEF", specLabel:"Residential Property" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "rural": { label:"Rural", sector:"Land", designations: [
+      { id:"default", label:"Rural", specId:"DEF", specLabel:"Rural" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ], core:[], optional:[], tech:[] },
+  "valuation":                {
+    label:"Valuation",
+    sector:"Property",
+    designations: [
+      { id:"res_surv", label:"Residential survey", specId:"RS", specLabel:"Residential survey" },
+      { id:"val", label:"Valuation", specId:"VAL", specLabel:"Valuation" },
+      { id:"mba", label:"Machinery and business assets", specId:"MBA", specLabel:"Machinery and business assets" },
+      { id:"res", label:"Research", specId:"RES", specLabel:"Research" }
+    ],
+    core:[], optional:[], tech:[]
+  },
 };
 
 // ── Convenience accessors for the active pathway ─────────────────────────────
@@ -3587,8 +3667,7 @@ function loadState() {
                            rpqBody:null,rpqExpYears:null,result:null,
                            cHasDegree:null,cExpWithDeg:null,cExpNoDeg:null,cExpPossibly:null};
     if (S.elig && S.elig.cHasDegree === undefined) { S.elig.cHasDegree=null; S.elig.cExpWithDeg=null; S.elig.cExpNoDeg=null; S.elig.cExpPossibly=null; }
-    if (!S.pathway)      S.sector = null;
-  S.pathway = null;
+    if (!S.pathway) S.pathway = null;
     if (!S.subDesig)     S.subDesig = null;
     if (!S.appendices)   S.appendices = [];
     if (!S.erAppendices) S.erAppendices = [];
@@ -5412,7 +5491,11 @@ function selSubDesig(d) {
   const desigs = getDesigs();
   if (desigs) {
     const spec = desigs.find(x => x.id === d);
-    if (spec) S.sel.spec = spec.specId;
+    if (spec) {
+      S.sel.spec = spec.specId;
+      S.sel.core = S.sel.core.filter(id => id !== spec.specId);
+      S.sel.opt  = S.sel.opt.filter(id => id !== spec.specId);
+    }
   }
   saveState();
   render();
@@ -5447,7 +5530,7 @@ function r1(C) {
   let out = `
     <div style="max-width:900px;margin:0 auto;animation:fadeIn 0.3s ease">
       <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--text-dark);margin-bottom:16px">Select Your Pathway</h2>
-      <p style="color:var(--text-light);margin-bottom:32px">Select your sector, pathway, and specialist designation below.</p>
+      <p style="color:var(--text-light);margin-bottom:32px">Select your sector, pathway, and specialization below.</p>
 
       <div style="margin-bottom:32px">
         <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">1. Select Sector</h3>
@@ -5495,7 +5578,7 @@ function r1(C) {
 
     out += `
       <div style="margin-bottom:32px;animation:fadeIn 0.3s ease">
-        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">3. Select Specialist Designation</h3>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text-dark);margin-bottom:16px">3. Select Specialization</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
           ${desigRows}
         </div>
