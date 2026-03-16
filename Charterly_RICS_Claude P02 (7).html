@@ -5377,6 +5377,46 @@ function confirmBodyAndContinue() {
 
 // ──────────────────────────────────────────────── STEP 1 — Pathway ──────────
 
+
+function selSector(sec) {
+  if (S.sector === sec) return;
+  S.sector = sec;
+  S.pathway = null;
+  S.subDesig = null;
+  S.desig = null;
+  S.sel.spec = null;
+  S.sel.core = [];
+  S.sel.opt = [];
+  S.sel.tech = null;
+  saveState();
+  render();
+}
+
+function selPathway(key) {
+  if (S.pathway === key) return;
+  S.pathway = key;
+  S.subDesig = null;
+  S.desig = null;
+  S.sel.spec = null;
+  S.sel.core = [];
+  S.sel.opt = [];
+  S.sel.tech = null;
+  saveState();
+  render();
+}
+
+function selSubDesig(d) {
+  S.subDesig = d;
+  S.desig = d; // legacy alias
+  // auto-select matching specialism
+  const desigs = getDesigs();
+  if (desigs) {
+    const spec = desigs.find(x => x.id === d);
+    if (spec) S.sel.spec = spec.specId;
+  }
+  saveState();
+  render();
+}
 function r1(C) {
   // Group pathways by sector
   const sectors = {};
