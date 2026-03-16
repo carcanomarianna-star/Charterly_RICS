@@ -2753,10 +2753,7 @@ function rCPD(C) {
   titleEl.innerHTML = `
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;gap:12px">
       <h1 class="page-title" style="margin-bottom:0">CPD Logbook</h1>
-      <a href="https://apcstudyhub.com/cpd-record-rics-apc/" target="_blank" rel="noopener"
-         style="font-size:11px;color:var(--rics);text-decoration:none;display:flex;align-items:center;gap:4px;padding:5px 10px;border:1px solid var(--rics-border);border-radius:7px;background:var(--rics-bg);white-space:nowrap;flex-shrink:0;margin-top:4px">
-        💡 CPD Guidance
-      </a>
+
     </div>
     <p class="sub" style="margin-bottom:20px">Record your Continuing Professional Development activities for the 12 months prior to your preliminary review.</p>
     ${isRPQRoute() ? '<div class="panel-info" style="margin-bottom:16px;padding:12px 16px;border-radius:8px;font-size:12.5px;color:var(--accent)">📋 <strong>RPQ Direct Entry route:</strong> You do not need to complete Competency Statements or a Case Study. Please prepare your CPD record and Professional CV for submission.</div>' : ''}`;
@@ -5380,47 +5377,6 @@ function confirmBodyAndContinue() {
 
 // ──────────────────────────────────────────────── STEP 1 — Pathway ──────────
 
-
-function selSector(sec) {
-  if (S.sector === sec) return;
-  S.sector = sec;
-  S.pathway = null;
-  S.subDesig = null;
-  S.desig = null;
-  S.sel.spec = null;
-  S.sel.core = [];
-  S.sel.opt = [];
-  S.sel.tech = null;
-  saveState();
-  render();
-}
-
-function selPathway(key) {
-  if (S.pathway === key) return;
-  S.pathway = key;
-  S.subDesig = null;
-  S.desig = null;
-  S.sel.spec = null;
-  S.sel.core = [];
-  S.sel.opt = [];
-  S.sel.tech = null;
-  saveState();
-  render();
-}
-
-function selSubDesig(d) {
-  S.subDesig = d;
-  S.desig = d; // legacy alias
-  // auto-select matching specialism
-  const desigs = getDesigs();
-  if (desigs) {
-    const spec = desigs.find(x => x.id === d);
-    if (spec) S.sel.spec = spec.specId;
-  }
-  saveState();
-  render();
-}
-
 function r1(C) {
   // Group pathways by sector
   const sectors = {};
@@ -6068,10 +6024,7 @@ function r3(C) {
     <div class="section-panel-header" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:16px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px">
         <h2 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);margin:0">${secLabel}</h2>
-        <a href="https://apcstudyhub.com/summary-of-experience-rics-apc/" target="_blank" rel="noopener"
-           style="font-size:11px;color:var(--rics);text-decoration:none;display:flex;align-items:center;gap:4px;padding:4px 9px;border:1px solid var(--rics-border);border-radius:7px;background:var(--rics-bg);white-space:nowrap;flex-shrink:0">
-          💡 Writing Tips
-        </a>
+
       </div>
       ${sectionBar(visComps, secId)}
     </div>
@@ -6654,10 +6607,7 @@ function r4(C) {
   csContent.innerHTML = `
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px">
       <h1 class="page-title" style="margin-bottom:0">Case Study</h1>
-      <a href="https://apcstudyhub.com/case-study-rics-apc/" target="_blank" rel="noopener"
-         style="font-size:11.5px;color:var(--rics);text-decoration:none;display:flex;align-items:center;gap:4px;padding:5px 10px;border:1px solid var(--rics-border);border-radius:7px;background:var(--rics-bg);white-space:nowrap;flex-shrink:0;margin-top:4px">
-        💡 Writing Tips
-      </a>
+
     </div>
     <p class="sub" style="margin-bottom:14px">Maximum 3,000 words. Describe a real project from the two years prior to your submission date.</p>
 
