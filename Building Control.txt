@@ -1,0 +1,28 @@
+Category,Competency,Level Required
+Mandatory,"Ethics, Rules of Conduct and professionalism",Level 3
+Mandatory,Client care,Level 2
+Mandatory,Communication and negotiation,Level 2
+Mandatory,Health and safety,Level 2
+Mandatory,Accounting principles and procedures,Level 1
+Mandatory,Business planning,Level 1
+Mandatory,"Conflict avoidance, management and dispute resolution procedures",Level 1
+Mandatory,Data management,Level 1
+Mandatory,"Diversity, inclusion and teamworking",Level 1
+Mandatory,Inclusive environments,Level 1
+Mandatory,Sustainability,Level 1
+Core,Building control inspections,Level 3
+Core,Fire safety,Level 3
+Core,Inspection,Level 3
+Core,Legal/regulatory compliance,Level 3
+Optional,BIM management,Two to Level 3 and one to Level 2
+Optional,Building pathology,Two to Level 3 and one to Level 2
+Optional,"Client care (to Level 3) or Data management",Two to Level 3 and one to Level 2
+Optional,Conservation and restoration,Two to Level 3 and one to Level 2
+Optional,Construction technology and environmental services,Two to Level 3 and one to Level 2
+Optional,Contaminated land,Two to Level 3 and one to Level 2
+Optional,Measurement,Two to Level 3 and one to Level 2
+Optional,Planning and development management,Two to Level 3 and one to Level 2
+Optional,Risk management,Two to Level 3 and one to Level 2
+Optional,Sustainability,Two to Level 3 and one to Level 2
+Optional,Works progress and quality management,Two to Level 3 and one to Level 2
+Optional,"Plus, one to Level 2 from the full list of technical competencies",Level 2
